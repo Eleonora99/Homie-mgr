@@ -1,8 +1,3 @@
-# Homie-mgr
-Born as a University Project ( Computer Networks exam) , Homie -mgr is about design and development of a environment automation system based on microservice architectures.
-
-**1. PROJECT PURPOSE**
-
 Homie-mgr takes his name from his functionalities: it allows its owner to manage every kind of room/environment he prefers throuth sensor and actuator use.
 The owner can fecth his sensor datas and manage them, plan actuator activation and set thresholds that have to be kept.
 In this repository there is a code example about temperature and lightning managment.
@@ -42,15 +37,53 @@ It's possible to implement the environment automation system by different hardwa
 
 **REQUIREMENT FULFILLMENT**
 
-- More than 10 API REST are supplied in order to provide a rich and useful presentation layer
-- As first commercial API Provider, Google Calendar with his Oauth has been chosed 
-- As second commercial API Provider, WeatherMap  has been chosed 
+- More than 8 (+ 3 debug) API REST are supplied in order to provide a rich and useful presentation layer
+- 2 (+1 debug) API REST are supplied in order to get datas from actuators
+- As first commercial API Provider, Google Calendar with his Oauth has been chosen 
+- As second commercial API Provider, WeatherMap  has been chosen 
 - In order to recive and manage sensor datas it is used HiveMQ (MTTQ Protocol)
 
 
 **INSTALLATION GUIDE**
+The following paragraphs only provide a guide about how Homie-mgr software side works.
+
+In order to install the project correctly on its own device [Docker](https://docs.docker.com/engine/install/) is required.
+To verify that, just write and execute this command on command line
+
+```
+docker -v
+```
+Now, you can download the project by the following command:
+
+```
+git clone https://github.com/Eleonora99/Homie-mgr
+```
+Github Username and password will be asked.
+From command line path log in downloaded project folder and execute:
+
+```
+docker-compose up -d
+```
+This will make Docker start with four images: MariaDB, API- Server (NodeJS), PHP(nginx), Actuators.
+Please in order to avoid ERRADDR check that 8080, 4786, 4347 are not already in use, if the please free them.
+To start server please execute:
+
+```
+docker-compose exec prjrdc_node-server_1 node server.js 
+```
+Now you can easly visit the website www.homie-mgr.xyz and test provided APis.
+
+
+
 
 **API DOC**
+
+Api Documentation is avaible and working on Docker.
+You can find  API-server API DOCs in api_server/apidoc,
+while you can view Actuators API DOCs in attuatori/apidoc.
+
+
+
 
 
 
