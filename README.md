@@ -64,13 +64,8 @@ From command line path log in downloaded project folder and execute:
 ```
 docker-compose up -d
 ```
-This will make Docker start with four images: MariaDB, API- Server (NodeJS), PHP(nginx), Actuators.
-Please in order to avoid ERRADDR check that 8080, 4786, 4347 are not already in use, if the please free them.
-To start server please execute:
-
-```
-docker-compose exec prjrdc_node-server_1 node server.js 
-```
+This will make Docker start with four images: MariaDB, API- Server (NodeJS), PHP(nginx), API_act(Python).
+If necessary it will build and start a custom image automatically (es Api_act). 
 Now you can easly visit the website www.homie-mgr.xyz and test provided APis.
 
 
@@ -81,6 +76,14 @@ Now you can easly visit the website www.homie-mgr.xyz and test provided APis.
 Api Documentation is avaible and working on Docker.
 You can find  API-server API DOCs in api_server/apidoc,
 while you can view Actuators API DOCs in attuatori/apidoc.
+
+In order to update apidoc contents, please execute:
+
+*ex. for api_server*
+```
+docker exec api_server node_modules/apidoc/bin/apidoc -i ./ -o apidoc 
+```
+
 
 
 
