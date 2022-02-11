@@ -37,7 +37,7 @@ It's possible to implement the environment automation system by different hardwa
 
 **REQUIREMENT FULFILLMENT**
 
-- More than 8 (+ 3 debug) API REST are supplied in order to provide a rich and useful presentation layer
+- More than 9 (+ 3 debug) API REST are supplied in order to provide a rich and useful presentation layer
 - 2 (+1 debug) API REST are supplied in order to get datas from actuators
 - As first commercial API Provider, Google Calendar with his Oauth has been chosen 
 - As second commercial API Provider, WeatherMap  has been chosen 
