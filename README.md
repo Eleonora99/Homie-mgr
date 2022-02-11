@@ -33,7 +33,7 @@ It's possible to implement the environment automation system by different hardwa
 
 10. Docker
 
-/////////////IMAGE////////////
+![project](https://user-images.githubusercontent.com/68509977/153639610-43503103-236c-413c-a4bc-73de92fe5cb3.png)
 
 **REQUIREMENT FULFILLMENT**
 
