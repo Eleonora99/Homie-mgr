@@ -14,7 +14,7 @@ It's possible to implement the environment automation system by different hardwa
 
 2: Lightning sensor (BH1750)
 
-![image](https://user-images.githubusercontent.com/68509977/152329754-c49b032f-8cb5-41b7-b139-3adddfd3f238.png)
+![image](https://cdn-reichelt.de/bilder/web/xxl_ws/A300/GY-302_1.png)
 
 
 3. Raspberry Pi (in order to communicate with sensors)
