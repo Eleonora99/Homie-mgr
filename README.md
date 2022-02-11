@@ -9,7 +9,7 @@ It's possible to implement the environment automation system by different hardwa
 1. Temperature and Humidity sensor (DHT11)
    
 
-![image](https://user-images.githubusercontent.com/68509977/152329449-623eecdb-87c5-4e98-9591-cf6dfaa152c3.png)
+![image](https://www.antoniovasco.it/wp-content/uploads/2020/01/DHT11-Sensor.jpg)
 
 
 2: Lightning sensor (BH1750)
