@@ -1,0 +1,47 @@
+version: '2'
+
+services:
+  homie-web:
+    image: bitnami/nginx:latest
+    ports:
+        - "443:443"
+    volumes:
+      - ./nginx_conf/nginx.conf:/opt/bitnami/nginx/conf/nginx.conf:ro
+      - ./nginx_conf/default.conf:/opt/bitnami/nginx/conf/server_blocks/my_server_block.conf:ro
+      - ./nginx_conf/certs:/certs:ro
+      - ./www:/app
+    depends_on:
+      - mariadb
+
+  mariadb:
+    image: bitnami/mariadb:latest
+    ports:
+      - "3306:3306"
+    environment:
+      - MARIADB_ROOT_PASSWORD=homiepwd
+    volumes:
+      - ./mysql:/bitnami/mariadb
+
+  php-fpm:
+    image: bitnami/php-fpm:latest
+    volumes:
+      - ./nginx_conf/php.ini:/opt/bitnami/php/etc/php.ini
+      - ./www:/app
+      
+  node-server:
+    image: "node"
+    stdin_open: true 
+    tty: true        
+    working_dir: /home/node
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - ./api_server:/home/node
+    ports:
+      - "8080:8080"
+    command: "bash"
+    depends_on:
+      - mariadb
+
+
+

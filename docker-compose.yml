@@ -1,0 +1,64 @@
+version: '3'
+
+services:
+  homie-web:
+    image: bitnami/nginx:latest
+    ports:
+        - "443:443"
+    volumes:
+      - ./nginx_conf/nginx.conf:/opt/bitnami/nginx/conf/nginx.conf:ro
+      - ./nginx_conf/default.conf:/opt/bitnami/nginx/conf/server_blocks/my_server_block.conf:ro
+      - ./nginx_conf/certs:/certs:ro
+      - ./www:/app
+    depends_on:
+      - mariadb
+
+  mariadb:
+    image: bitnami/mariadb:latest
+    ports:
+      - "3306:3306"
+    environment:
+      - MARIADB_ROOT_PASSWORD=homiepwd
+    volumes:
+      - ./mysql:/bitnami/mariadb
+      - ./mysql/my.cnf:/opt/bitnami/mariadb/conf/my.cnf
+
+  php-fpm:
+    image: bitnami/php-fpm:latest
+    volumes:
+      - ./nginx_conf/php.ini:/opt/bitnami/php/etc/php.ini
+      - ./www:/app
+
+  api-server:
+    image: "node"
+    stdin_open: true
+    tty: true
+    working_dir: /home/node
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - ./api_server:/home/node
+    ports:
+      - "8080:8080"
+    command: "./wait-for-it.sh mariadb:3306 -t 10 -- node server.js"
+    depends_on:
+      - mariadb
+  api_act:
+    build: ./attuatori
+    ports:
+    - "4786:4786"
+  engine:
+    image: "node"
+    stdin_open: true
+    tty: true
+    working_dir: /home/node
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - ./engine:/home/node
+    dns:
+      - 8.8.8.8
+    command: "./wait-for-it.sh mariadb:3306 -t 10 -- node engine.js"
+    depends_on:
+      - mariadb
+      - api_act
