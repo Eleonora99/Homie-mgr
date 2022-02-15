@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Google Calendar API Quickstart</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">  
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/momentjs/2.14.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="scheduling.js"></script>
+    <link rel ="stylesheet" href="./font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel ="stylesheet" href="scheduling.css">
+    </head>
+    <body>
+        <div class="container">     
+             <nav class="navbar navbar-light ">
+                 <div class="row">
+                        <div class="col-6">
+                            <h2>Pianificazione Eventi</h2>
+                        </div>
+                        <div class="col-6">
+                             <button id="authorize_button" style="display: none;">Authorize</button>
+                            <button id="signout_button" style="display: none;">Sign Out</button>
+                        </div>
+                    
+                    </div>
+                
+                </nav>
+        
+
+                <!--Add buttons to initiate auth sequence and sign out-->
+               
+
+                <div id="content" style="white-space: pre-wrap;"></div>
+                <br><br>
+                <script type="text/javascript">
+                    // Client ID and API key from the Developer Console
+                    var CLIENT_ID = '275076483840-ah6ioehoa9i509fplc3v0h0qrrk2ncnb.apps.googleusercontent.com';
+                    var API_KEY = 'AIzaSyA-4ObZvMWAyLjsGPfuqrYtvNgr-2ZoGLA';
+
+                    // Array of API discovery doc URLs for APIs used by the quickstart
+                    var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
+
+                    // Authorization scopes required by the API; multiple scopes can be
+                    // included, separated by spaces.
+                    var SCOPES = "https://www.googleapis.com/auth/calendar";
+
+                    var authorizeButton = document.getElementById('authorize_button');
+                    var signoutButton = document.getElementById('signout_button');
+
+                    /**
+                     *  On load, called to load the auth2 library and API client library.
+                     */
+                    function handleClientLoad() {
+                        gapi.load('client:auth2', initClient);
+                        
+                    }
+
+
+                    /**
+                     *  Initializes the API client library and sets up sign-in state
+                     *  listeners.
+                     */
+                    function initClient() {
+                        gapi.client.init({
+                        apiKey: API_KEY,
+                        clientId: CLIENT_ID,
+                        discoveryDocs: DISCOVERY_DOCS,
+                        scope: SCOPES
+                        }).then(function () {
+                        // Listen for sign-in state changes.
+                        gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
+
+                        // Handle the initial sign-in state.
+                        updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+                        authorizeButton.onclick = handleAuthClick;
+                        signoutButton.onclick = handleSignoutClick;
+                        }, function(error) {
+                        appendPre(JSON.stringify(error, null, 2));
+                        });
+                    }
+
+                    /**
+                     *  Called when the signed in status changes, to update the UI
+                     *  appropriately. After a sign-in, the API is called.
+                     */
+                    function updateSigninStatus(isSignedIn) {
+                        if (isSignedIn) {
+                        authorizeButton.style.display = 'none';
+                        signoutButton.style.display = 'block';
+                        listUpcomingEvents();
+                        } else {
+                        alert("Attenzione, non sei loggato!");
+                        window.location='https://homie.mgr.xyz/';
+                        authorizeButton.style.display = 'block';
+                        signoutButton.style.display = 'none';
+                        }
+                    }
+
+                    /**
+                     *  Sign in the user upon button click.
+                     */
+                    function handleAuthClick(event) {
+                        gapi.auth2.getAuthInstance().signIn();
+                    }
+
+                    /**
+                     *  Sign out the user upon button click.
+                     */
+                    function handleSignoutClick(event) {
+                        gapi.auth2.getAuthInstance().signOut();
+                    }
+
+                    /**
+                     * Append a pre element to the body containing the given message
+                     * as its text node. Used to display the results of the API call.
+                     *
+                     * @param {string} message Text to be placed in pre element.
+                     */
+                    function appendPre(message) {
+                        var pre = document.getElementById('content');
+                        var textContent = document.createTextNode(message + '\n');
+                        pre.appendChild(textContent);
+                    }
+
+                    /**
+                     * Print the summary and start datetime/date of the next ten events in
+                     * the authorized user's calendar. If no events are found an
+                     * appropriate message is printed.
+                     */
+                
+                    function listUpcomingEvents() {
+                        gapi.client.calendar.events.list({
+                        'calendarId': 'primary',
+                        'timeMin': (new Date()).toISOString(),
+                        'showDeleted': false,
+                        'singleEvents': true,
+                        'maxResults': 10,
+                        'orderBy': 'startTime'
+                        }).then(function(response) {
+                            var events = response.result.items;
+                            // insert in events in events table in order to trigger them
+                            appendPre('Upcoming events:');
+                                
+                            if (events.length > 0) {
+                                for (i = 0; i < events.length; i++) {
+                                var event = events[i];
+                                var start = event.start.dateTime;
+                                var end = event.end.dateTime;
+                                
+                                if (!start) { start = event.start.date }
+                                var item = '<h2>'+event.summary+' '+start+'</h2>'+'<button id="delete"  value="'+start+end+event.summary+'Z'+event.id+'" ><i class="fa fa-trash"></i></button>';
+                                document.getElementById("content").innerHTML = item;
+                                }               
+                            } else {
+                                document.getElementById("content").innerHTML = '<p>Nessun evento da mostrare<p>';
+                            }
+                            
+                        });
+                        
+                        gapi.client.load('calendar', 'v3', addEvent);
+                        
+                    }
+                    
+                    function addEvent() {
+                        var start =$("#start").val() +':00.0z'; // prendo i valori in input
+                        var end=$("#end").val()+':00.0z';
+                        var choice = document.getElementById("attuatori").value;
+                        console.log(start,end,choice);
+                        var event = {                          // creo un oggetto evento
+                            summary: choice,
+                            start: {
+                                    'dateTime': start
+                                    },
+                            end: {
+                                    'dateTime': end,
+                                },
+                            };
+
+                        if(start!=':00.0z'&&end!=':00.0z'){	    // considerando che l'evento non sia stato creato erronamente
+                            $.ajax({                                            // effettuo una get verso l'api server
+                                url: 'https://homie-mgr.xyz:8080/events/all',   // la get restituirà la lista degli eventi presenti nel db
+                                method: 'GET',
+                                success: function(data) { 
+                                    var events= data.result;
+                                    var i;
+                                    var alrAdd= false;
+                                    console.log(events);
+                                    for(i=0; i<events.length; i++){
+                                        var e = events[i];
+                                        var e_db_s  = e.dt_start.split('.')[0];
+                                        var e_ins_e = end.split('.')[0];
+                                        var e_ins_s =start.split('.')[0];
+                                        console.log(e_db_s, e_ins_s);
+                                        if(e.name==choice&&e_ins_s==e_db_s){
+                                            alrAdd = true;
+                                            }
+                                        }
+                                        
+                                    if(!alrAdd){
+                                        $.ajax({ 
+                                        url: 'https://homie-mgr.xyz:8080/events/put',
+                                        method: 'POST',
+                                        data: {
+                                            name : choice,
+                                            start:  e_ins_s,
+                                            end :   e_ins_e
+                                        },
+                                        success: function(data) { console.log(data); }
+                                        });	
+
+                                        var request = gapi.client.calendar.events.insert({
+                                                'calendarId':		'primary',	// calendar ID
+                                                "resource":			event		// pass event details with api call
+                                        });
+                                                                
+                                                                // handle the response from our api call
+                                        request.execute(function(resp) {
+                                            if(resp.status=='confirmed') { document.getElementById('event-response').innerHTML = "Event created successfully. View it <a href='" + resp.htmlLink + "'>online here</a>.";} 
+                                            
+                                            else { document.getElementById('event-response').innerHTML = "There was a problem. Reload page and try again.";}
+                                            
+                                            console.log(resp);
+                                        });
+                                    }
+                                    else { alert("programmazione già inserita!");}
+                                }                                     
+                                            
+                            });
+                        }
+                    }
+
+                            
+                </script> 
+                
+                <script>
+
+                    $(document).on('click',"#delete",function() {
+                            
+                            var start = ($(this).val()).split('Z')[0];
+                            var end =($(this).val()).split('Z')[1];
+                            var name = ($(this).val()).split('Z')[2];
+                            var id = ($(this).val()).split('Z')[3];
+                            var hour = (parseInt(start.split("T")[1].slice(0,2))).toString();
+                            var date_time = (start.split("T")[0]+'T'+hour+start.split("T")[1].slice(2,8)).toString()+".000Z";
+                            console.log(start,end,name,id);
+                            var path='https://homie-mgr.xyz:8080/events/delete';
+                        
+                            var xhr = new XMLHttpRequest();
+                            xhr.open("POST", path);
+
+                            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+                            xhr.onreadystatechange = function () {
+                                if (xhr.readyState === 4) {
+                                    console.log(xhr.status);
+                                    console.log(xhr.responseText);
+                                }
+                            };
+
+                            var data = "dt="+date_time+"&name="+name;
+
+                            xhr.send(data);
+                            
+                            var event = {                          // creo un oggetto evento
+                                summary: name,
+
+                                start: {
+                                        'dateTime': start,
+                                    },
+                                end: {
+                                        'dateTime': end,
+                                    },
+                            };
+                            
+                            var request = gapi.client.calendar.events.delete({
+                                    'calendarId':		'primary',	// calendar ID
+                                    'eventId':           id,
+                                    "resource":			event		// pass event details with api call
+                            });
+                                                                
+                            request.execute(function(resp) {// handle the response from our api call
+                                if(resp.status=='confirmed') {document.getElementById('event-response').innerHTML = "Evento eliminato correttamente"};
+                        });
+                    });     
+                </script>
+                
+                <script src="https://apis.google.com/js/api.js"
+                    onload="this.onload=function(){};handleClientLoad()"
+                    onreadystatechange="if (this.readyState === 'complete') this.onload()">
+                    
+                </script>
+            </nav>
+            
+            <br>
+            <h3 class="control-label">Schedule your services</h3><br>
+            <h5>START</h5>
+            <input id='start' type='datetime-local' placeholder="yyyy-mm-ddT--:--"/>
+            <br>
+            <h5>END</h5>
+            <input id='end' type='datetime-local' placeholder="yyyy-mm-ddT--:--"/>
+
+            <form>
+                <select id="attuatori" value =''>
+                    <option value=""></option> 
+                    <option value="light">illuminazione</option>
+                    <option value="temp">temperatura</option>
+                </select>
+            </form>
+            <input type="button" value ="submit" onclick="addEvent()">
+                
+            <div id="event-response"></div>
+                
+                
+            <h2>Automatizza Eventi</h2>
+
+            <select id="attuatori-1" value =''>
+                <option value=""></option> 
+                <option value="illuminazione">illuminazione</option>
+                <option value="temperatura">temperatura</option>
+            </select>
+                
+            <input id='value-1' type='text' placeholder="threshold"/>
+            <button type="button" id ="planEvent"  onclick="planEvent()">submit</button>
+                
+            <script>
+                    
+                // Trigger Function, takes selected values and push them 
+                // in DB thesholds table through ajax call and then prit them as html paragraphs
+                function planEvent(){
+                    //prende i valori e li inserisce nel db
+                    var attuatore= $("#attuatori-1").val();
+                    var value = $("#value-1").val();
+                    console.log("sono qui");
+                    $.ajax({
+                    url: 'https://homie-mgr.xyz:8080/thesholds/put',
+                    method: 'POST',
+                    data: {
+                        "name":attuatore, 
+                        "value":value
+                    },
+                    success: function(data) {console.log(data);
+                        item="<p>Soglia registrata con successo!</p>";
+                        $('.plannedEvents').append(item);}
+                    });
+                }
+
+            </script>
+                
+                
+                
+            <h5>Visualizza qui le soglie già impostate</h5>
+            <button type="button" id ="get"><i class="fa fa-arrow-down"></i></button>
+            <div class="plannedEvents"></div>
+                <div class="thesholds"></div>
+                
+            <script>
+                $('#get').click(function(){
+
+                    $.ajax({ 
+                        url: 'https://homie-mgr.xyz:8080/thesholds/all',
+                        method: 'GET',
+                        success: function(data) { 
+                            console.log(data);
+                            var soglie = data.result;
+                            console.log(soglie);
+                            var items=[];
+                            var i=0;
+                            while(i<soglie.length){
+                                var item = soglie[i].name + ' '+ soglie[i].value+' ';
+                                console.log(item);
+                                items.push(item);
+                                i++;
+                            }
+                            $('.thesholds').append(items.join('\n'));
+                            
+                        }
+                    })
+                }); 
+            </script>
+        </div>
+    </body>
+</html>

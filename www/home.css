@@ -1,0 +1,123 @@
+@import url('https://fonts.googleapis.com/css2?family=Dongle:wght@300&display=swap');
+
+body{
+    font-family:  'Dongle', sans-serif;
+    overflow: scroll;
+}
+
+nav{
+    margin-top:0..5%;
+    background:linear-gradient(to left,#78b3ff9d, #00b27db6);
+    padding: 10%;
+    color:white;
+    border-radius: 20px;
+    box-shadow: 0 0 100px linear-gradient(to left,#78b3ff9d, #00b27db6);
+}
+.container{
+    padding: 2%;
+    height: 110vh;
+    border-radius: 20px;
+   /* box-shadow: 0 0 20px  rgba(61, 78, 104, 0.705);*/
+   box-shadow: 0 0 100px #78b2ff;
+   border-style:2px solid black;
+   background-color: rgb(236, 236, 236);
+}
+
+
+.weather{
+    margin-top: 5vmin;
+}
+
+.elenco .swiper-1{
+    height:10vw;
+    width:30vw;
+    border:1px solid #ccc;
+    overflow: auto;
+    padding-left: 2%;
+}
+
+
+button{
+    position: relative;
+    color: rgb(255, 255, 255); font-size: 16px;
+    text-decoration:none;
+
+    padding: 0.5em 1.5em;
+    margin: 0.5em;
+
+    cursor: pointer;
+
+    border-radius: 8px;
+    background: linear-gradient(
+        170deg,
+        rgba(255, 255, 255, 0.856) 0%,
+        rgba(255, 255, 255, 0.315) 20%,
+        rgba(255, 255, 255, 0.11) 50%,
+        rgba(0, 0, 0, 0) 50%,
+        rgba(0, 0, 0, 0) 100%
+      ); /* W3C */
+      border-color: rgba(255, 255, 255, 0.4);
+      border-image: none;
+      border-style: inset;
+      border-width: 1px;
+}
+
+.col-6 button{
+    background: linear-gradient(
+        170deg,
+        rgba(116, 255, 103, 0.788) 0%,
+        rgba(140, 248, 234, 0.37) 20%,
+        rgba(26, 68, 59, 0.137) 50%,
+        rgba(0, 0, 0, 0.089) 50%,
+        rgba(0, 0, 0, 0) 100%
+      ); /* W3C */
+      border-color: rgba(14, 73, 32, 0.432);
+      color:rgba(0, 165, 143, 0.795);
+      border-radius: 50px;
+      width:10%;
+      padding: 0.5em 0.5em;
+}
+
+.col-3 button{
+    background: linear-gradient(
+        170deg,
+        rgba(116, 255, 103, 0.788) 0%,
+        rgba(140, 248, 234, 0.37) 20%,
+        rgba(26, 68, 59, 0.137) 50%,
+        rgba(0, 0, 0, 0.089) 50%,
+        rgba(0, 0, 0, 0) 100%
+      );
+      border-color: rgba(14, 73, 32, 0.432);
+      color:rgba(0, 165, 143, 0.795);
+      border-radius: 50px;
+      width:20%;
+      padding: 0.5em 0.3em;
+      margin-right:100%;
+      margin-left:-20%;
+      margin-top:-50%;
+
+}
+
+
+.col-6 .row  #misurazione2 {
+    margin-top:-5%;
+    margin-left: 15%;
+    width: 30%;
+}
+
+.col-6 .row  #value {
+    margin-top:2%;
+    margin-left: 9%;
+    width: 31%;
+}
+
+.col-6 .row  #date {
+    margin-top:-5%;
+    margin-left: 15%;
+    width: 30%;
+    height: 20%;
+}
+
+.swiper-3{
+    overflow: hidden;
+}

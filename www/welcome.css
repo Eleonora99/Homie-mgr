@@ -1,0 +1,34 @@
+.row .col-lg-6{
+    margin-top: 5%;
+  }
+  
+  .row .col-lg-6 h2{
+    text-align: right;
+  }
+  
+  .row .col-lg-6 h1{
+    text-align: center;
+    font-size: 200px;
+  }
+  
+  nav{
+    font-size:100%;
+  
+  }
+  
+  nav .ml-2 {
+    margin-left: 80%;
+  }
+  
+  nav .ml-2 a{
+   text-decoration: none;
+   color: black;
+  
+  }
+  
+  nav .ml-2 a :hover{
+    text-decoration: none;
+    color:#00b27d;
+   
+   }
+   

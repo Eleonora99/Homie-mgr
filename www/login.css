@@ -1,0 +1,38 @@
+
+body a{
+    text-decoration: none;
+}
+
+.row .col-6 .iscrizione .field {
+    margin-top : 3%;
+ }
+ 
+ .row .col-6 .iscrizione button{
+     margin-top: 3%;
+   
+     background-color: white;
+     border-radius: 25% ;
+     border-width: thin;
+     border-color: black;
+     padding-top: 2%;
+     font-size: small;
+ }
+ 
+ .row .col-6 .accesso button{
+   
+ 
+     background-color: white;
+     border-radius: 25% ;
+     border-width: thin;
+     border-color: black;
+     padding-top: 2%;
+     font-size: small;
+ }
+ 
+ .row .col-6 #Autenticato button{
+     background-color: white;
+     border:hidden;  
+     
+ }
+
+  
