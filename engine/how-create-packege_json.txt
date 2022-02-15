@@ -1,0 +1,4 @@
+npm install https
+npm install request
+npm install mysql
+npm init --yes

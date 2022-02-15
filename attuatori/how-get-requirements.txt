@@ -1,0 +1,6 @@
+sudo apt-get install pipenv
+pipenv shell
+pipenv install requests
+pipenv install flask
+pipenv run python api_act.py
+pipenv lock -r > requirements.txt
