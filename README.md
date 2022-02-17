@@ -2,6 +2,9 @@ Homie-mgr takes his name from his functionalities: it allows its owner to manage
 The owner can fecth his sensor datas and manage them, plan actuator activation and set thresholds that have to be kept.
 In this repository there is a code example about temperature and lightning managment.
 
+![Architettura_Logica_Prj_RDC v01 drawio](https://user-images.githubusercontent.com/68509977/154546554-c97de1db-53cd-4f1d-94e0-310a96c2c623.png)
+
+
 **2.ARCHITECTURES CONCERNS AND EMPLOYED TECHNOLOGIES**
 
 It's possible to implement the environment automation system by different hardwares and software components, for this example has been used:
@@ -33,9 +36,6 @@ It's possible to implement the environment automation system by different hardwa
 9.SSL ( in order to encrytp Client-Server comunication)
 
 10. Docker
-
-
-![Architettura_Logica_Prj_RDC v01 drawio](https://user-images.githubusercontent.com/68509977/154546554-c97de1db-53cd-4f1d-94e0-310a96c2c623.png)
 
 
 ![project drawio](https://user-images.githubusercontent.com/68509977/154546322-0a6eaf20-ecc8-412c-8baa-f985392cb804.png)
