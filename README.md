@@ -9,6 +9,7 @@ It's possible to implement the environment automation system by different hardwa
 1. Temperature and Humidity sensor (DHT11)
    
 
+
 ![image](https://www.antoniovasco.it/wp-content/uploads/2020/01/DHT11-Sensor.jpg)
 
 
@@ -32,6 +33,9 @@ It's possible to implement the environment automation system by different hardwa
 9.SSL ( in order to encrytp Client-Server comunication)
 
 10. Docker
+
+![Architettura_Logica_Prj_RDC v01 drawio](https://user-images.githubusercontent.com/68509977/154541553-519a12a0-4256-45cb-ab7d-7ff1dba8d771.svg)
+
 
 ![project](https://user-images.githubusercontent.com/68509977/153639610-43503103-236c-413c-a4bc-73de92fe5cb3.png)
 
