@@ -7,7 +7,7 @@ In this repository there is a code example about temperature and lightning manag
 
 **2.ARCHITECTURES CONCERNS AND EMPLOYED TECHNOLOGIES**
 
-It's possible to implement the environment automation system by different hardwares and software components, for this example has been used:
+It's possible to implement the environment automation system with different hardwares and software components, for this example has been used:
 
 1. Temperature and Humidity sensor (DHT11)
    
