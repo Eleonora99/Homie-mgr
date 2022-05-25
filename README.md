@@ -38,7 +38,7 @@ It's possible to implement the environment automation system by different hardwa
 10. Docker
 
 
-![project drawio](https://user-images.githubusercontent.com/68509977/154546322-0a6eaf20-ecc8-412c-8baa-f985392cb804.png)
+![project](https://user-images.githubusercontent.com/68509977/170277803-acc71f3f-bd46-4187-b94f-2776b8d4a41a.png)
 
 
 
