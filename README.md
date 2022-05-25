@@ -38,8 +38,8 @@ It's possible to implement the environment automation system by different hardwa
 10. Docker
 
 
-![project](https://user-images.githubusercontent.com/68509977/170277803-acc71f3f-bd46-4187-b94f-2776b8d4a41a.png)
 
+![homie_tec](https://user-images.githubusercontent.com/68509977/170279417-f3bcfefc-4c38-4216-89d0-f391e400d15e.png)
 
 
 **REQUIREMENT FULFILLMENT**
