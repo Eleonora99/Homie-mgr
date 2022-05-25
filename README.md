@@ -1,4 +1,4 @@
-Homie-mgr takes his name from his functionalities: it allows its owner to manage every kind of room/environment he prefers throuth sensor and actuator use.
+Homie-mgr takes his name from his functionalities: it allows its owner to manage every kind of room/environment he prefers through sensor and actuator use.
 The owner can fecth his sensor datas and manage them, plan actuator activation and set thresholds that have to be kept.
 In this repository there is a code example about temperature and lightning managment.
 
