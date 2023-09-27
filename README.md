@@ -96,4 +96,8 @@ docker exec api_server node_modules/apidoc/bin/apidoc -i ./ -o apidoc
 ![homie](https://github.com/Eleonora99/Homie-mgr/assets/68509977/2a55e84c-c1c3-4ec6-bc9d-6d3f030a8e5b)
 
 
+![Screenshot from 2023-09-27 18-08-43](https://github.com/Eleonora99/Homie-mgr/assets/68509977/2ee5ed8b-4c76-4144-ac26-ecf6d7e897a3)
+
+
+
 
